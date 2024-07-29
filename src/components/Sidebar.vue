@@ -63,26 +63,38 @@
 
     <ul className="menu-inner py-1">
         <!-- Dashboards -->
-        <li className="menu-item active open">
-            <a href="javascript:void(0);" className="menu-link menu-toggle">
+        <li className="menu-item active">
+            <a href="/" className="menu-link">
                 <i className="menu-icon tf-icons bx bx-home-smile"></i>
-                <div className="text-truncate" data-i18n="Dashboards">Dashboards</div>
-                <span className="badge rounded-pill bg-danger ms-auto">5</span>
+                <div className="text-truncate" data-i18n="Dashboards">Dashboard</div>
             </a>
-            <ul class="menu-sub">
-                <li class="menu-item active">
-                  <a href="index.html" class="menu-link">
-                    <div class="text-truncate" data-i18n="Analytics">Analytics</div>
-                  </a>
+        </li>
+        
+        <!-- Checklist -->
+        <li className="menu-item">
+            <a href="javascript:void(0);" className="menu-link menu-toggle">
+                <i className="menu-icon tf-icons bx bx-collection"></i>
+                <div className="text-truncate" data-i18n="Basic">Checklist Cards</div>
+            </a>
+            <ul className="menu-sub">
+                <li className="menu-item active">
+                    <a href="/create-checklist" className="menu-link">
+                        <div className="text-truncate">Create Checklist</div>
+                    </a>
+                </li>
+                <li className="menu-item">
+                    <a href="/checklist" className="menu-link">
+                        <div className="text-truncate">Checklists</div>
+                    </a>
                 </li>
             </ul>
         </li>
 
-        <!-- Cards -->
-        <li className="menu-item">
-            <a href="cards-basic.html" className="menu-link">
-                <i className="menu-icon tf-icons bx bx-collection"></i>
-                <div className="text-truncate" data-i18n="Basic">Cards</div>
+        <!-- Todolist -->
+        <li class="menu-item">
+            <a href="/todolist" class="menu-link">
+                <i class="menu-icon tf-icons bx bx-list-check"></i>
+                <div class="text-truncate" data-i18n="Form Validation">Todo List</div>
             </a>
         </li>
     </ul>
@@ -90,7 +102,7 @@
 </template>
 
 <script>
-    export default {
-        name: 'Sidebar'
-    }
+export default {
+    name: 'Sidebar',
+}
 </script>

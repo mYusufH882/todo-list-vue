@@ -23,9 +23,19 @@ const router = createRouter({
           component: () => import('../views/HomeView.vue')
         },
         {
-          path: '/about',
-          name: 'about',
-          component: () => import('../views/AboutView.vue')
+          path: '/create-checklist',
+          name: 'create-checklist',
+          component: () => import('../views/checklist/AddChecklist.vue')
+        },
+        {
+          path: '/checklist',
+          name: 'checklist',
+          component: () => import('../views/checklist/Checklist.vue')
+        },
+        {
+          path: '/todolist',
+          name: 'todolist',
+          component: () => import('../views/todolist/TodoList.vue')
         }
       ]
     },

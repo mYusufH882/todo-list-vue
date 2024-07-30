@@ -37,6 +37,6 @@
 
 <script>
 export default {
-    name: 'Checklist'   
+    name: 'Checklist',
 }
 </script>

@@ -63,7 +63,7 @@
 
     <ul className="menu-inner py-1">
         <!-- Dashboards -->
-        <li className="menu-item active">
+        <li :class="{ 'menu-item': true, 'active': isActive('dashboard') }">
             <a href="/" className="menu-link">
                 <i className="menu-icon tf-icons bx bx-home-smile"></i>
                 <div className="text-truncate" data-i18n="Dashboards">Dashboard</div>
@@ -71,18 +71,18 @@
         </li>
         
         <!-- Checklist -->
-        <li className="menu-item">
+        <li :class="{ 'menu-item': true, 'open': isOpen('checklist') }">
             <a href="javascript:void(0);" className="menu-link menu-toggle">
                 <i className="menu-icon tf-icons bx bx-collection"></i>
                 <div className="text-truncate" data-i18n="Basic">Checklist Cards</div>
             </a>
             <ul className="menu-sub">
-                <li className="menu-item active">
+                <li :class="{ 'menu-item': true, 'active': isActive('create-checklist') }">
                     <a href="/create-checklist" className="menu-link">
                         <div className="text-truncate">Create Checklist</div>
                     </a>
                 </li>
-                <li className="menu-item">
+                <li :class="{ 'menu-item': true, 'active': isActive('checklist') }">
                     <a href="/checklist" className="menu-link">
                         <div className="text-truncate">Checklists</div>
                     </a>
@@ -91,7 +91,7 @@
         </li>
 
         <!-- Todolist -->
-        <li class="menu-item">
+        <li :class="{ 'menu-item': true, 'active': isActive('todolist') }">
             <a href="/todolist" class="menu-link">
                 <i class="menu-icon tf-icons bx bx-list-check"></i>
                 <div class="text-truncate" data-i18n="Form Validation">Todo List</div>
@@ -102,7 +102,41 @@
 </template>
 
 <script>
+import { useRoute } from 'vue-router';
+
 export default {
     name: 'Sidebar',
+    setup() {
+        const route = useRoute();
+
+        const isActive = (menu) => {
+            switch(menu) {
+                case 'dashboard':
+                    return route.path == '/';
+                case 'create-checklist':
+                    return route.path == '/create-checklist';
+                case 'checklist':
+                    return route.path == '/checklist';
+                case 'todolist':
+                    return route.path == '/todolist';
+                default:
+                    return false;
+            }
+        }
+
+        const isOpen = (menu) => {
+            switch(menu) {
+                case 'checklist':
+                    return route.path == '/checklist' || route.path == '/create-checklist' 
+                default: 
+                    return false;
+            }
+        }
+
+        return {
+            isActive,
+            isOpen
+        }
+    }
 }
 </script>

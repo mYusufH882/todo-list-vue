@@ -16,6 +16,7 @@ const router = createRouter({
     {
       path: '/',
       component: () => import('../views/Layout.vue'),
+      meta: { requireAuth: true },
       children: [
         {
           path: '/',
@@ -28,12 +29,17 @@ const router = createRouter({
           component: () => import('../views/checklist/AddChecklist.vue')
         },
         {
-          path: '/checklist',
-          name: 'checklist',
+          path: '/check-list',
+          name: 'check-list',
           component: () => import('../views/checklist/Checklist.vue')
         },
         {
-          path: '/todolist',
+          path: '/checklist/:id',
+          name: 'updateChecklist',
+          component: () => import('../views/checklist/UpdateChecklist.vue')
+        },
+        {
+          path: '/todolist/:id',
           name: 'todolist',
           component: () => import('../views/todolist/TodoList.vue')
         },

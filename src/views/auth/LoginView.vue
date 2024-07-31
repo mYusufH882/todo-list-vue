@@ -10,7 +10,7 @@
                                     <div className="app-brand justify-content-center">
                                         <h1>Login</h1>
                                     </div>
-                                    <h4 className="mb-1">Welcome to TodoList App ! 👋</h4>
+                                    <h4 className="mb-1">Welcome to TodoList Yusuf ! 👋</h4>
                                     <p className="mb-6">The greatest app for make better todo activities and increase your productivity !!!</p>
                                     <form @submit.prevent="handleSubmit">
                                         <div className="mb-3">
@@ -54,18 +54,39 @@
 </template>
 
 <script>
-    export default {
-        data() {
+import axios from 'axios';
+
+export default {
+    name: 'Layout',
+    data() {
+        return {
+            email: '',
+            password: ''
+        }
+    },
+    methods: {
+        async handleSubmit() {
+            const loggedIn = await axios.post(import.meta.env.VITE_BACKEND_URL + '/login', {
+                email: this.email,
+                password: this.password
+            })
+            .then((response) => {
+                if(response.data && response.data.access_token) {
+                    localStorage.setItem('token', response.data.access_token)
+                    this.$router.push('/')
+                } else {
+                    console.log('Token Unauthorized !')
+                }
+            })
+            .catch((error) => {
+                alert('Email/Password Salah !')
+                console.log(error)
+            });
+
             return {
-                email: '',
-                password: ''
-            }
-        },
-        methods: {
-            handleSubmit() {
-                console.log('Email : ', this.email)
-                console.log('Password : ', this.password)
+                loggedIn
             }
         }
     }
+}
 </script>

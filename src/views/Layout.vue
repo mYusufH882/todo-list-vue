@@ -27,9 +27,10 @@ import Navbar from '../components/Navbar.vue';
 import Sidebar from '../components/Sidebar.vue';
 import Footer from '../components/Footer.vue';
 import { ref, onMounted } from 'vue';
+import { useRouter } from 'vue-router';
+import axios from 'axios';
 
 export default {
-
     name: 'Layout',
     components: {
         Sidebar,
@@ -37,9 +38,35 @@ export default {
         Footer
     },
     setup() {
+        const isAuthenticated = ref(false)
+        const userData = ref(null)
+        const router = useRouter()
+
         const layoutMenu = ref(null);
 
         onMounted(() => {
+            //Token
+            const token = localStorage.getItem('token')
+            if(!token) {
+                router.push({ name: 'login' })
+                return
+            }
+
+            axios.get(import.meta.env.VITE_BACKEND_URL + '/user-profile', {
+                headers: {
+                    Authorization: `Bearer ${token}`
+                }
+            })
+            .then((response) => {
+                isAuthenticated.value = true
+                userData.value = response.data
+                console.log(response.data)
+            })
+            .catch((error) => {
+                console.error(error)
+                router.push({ name: 'login' })
+            });
+
             // Initialize menu
             const layoutMenuEl = document.querySelectorAll('#layout-menu');
             layoutMenuEl.forEach(function (element) {

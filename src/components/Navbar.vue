@@ -49,9 +49,9 @@
                             <div class="dropdown-divider my-1"></div>
                         </li>
                         <li>
-                            <a class="dropdown-item" href="javascript:void(0);">
+                            <button class="dropdown-item" @click="signOut">
                                 <i class="bx bx-power-off bx-md me-3"></i><span>Log Out</span>
-                            </a>
+                            </button>
                         </li>
                     </ul>
                 </li>
@@ -62,7 +62,33 @@
 </template>
 
 <script>
+import axios from 'axios';
+import { useRouter } from 'vue-router';
+
 export default {
-    name: 'Navbar'
+    name: 'Navbar',
+    setup() {
+        const router = useRouter();
+
+        const signOut = async () => {
+            try {
+                await axios.post(import.meta.env.VITE_BACKEND_URL + '/logout', {}, {
+                    headers: {
+                        'Authorization': `Bearer ${localStorage.getItem('token')}`
+                    }
+                });
+            
+                localStorage.removeItem('token')
+
+                router.push('/login')
+            } catch(error) {
+                console.error('Error during logout:', error);
+            }
+        };
+        
+        return {
+            signOut
+        }
+    }
 }
 </script>

@@ -71,7 +71,7 @@
         </li>
         
         <!-- Checklist -->
-        <li :class="{ 'menu-item': true, 'open': isOpen('checklist') }">
+        <li :class="{ 'menu-item': true, 'open': isOpen('check-list') }">
             <a href="javascript:void(0);" className="menu-link menu-toggle">
                 <i className="menu-icon tf-icons bx bx-collection"></i>
                 <div className="text-truncate" data-i18n="Basic">Checklist Cards</div>
@@ -82,20 +82,12 @@
                         <div className="text-truncate">Create Checklist</div>
                     </a>
                 </li>
-                <li :class="{ 'menu-item': true, 'active': isActive('checklist') }">
-                    <a href="/checklist" className="menu-link">
+                <li :class="{ 'menu-item': true, 'active': isActive('check-list') }">
+                    <a href="/check-list" className="menu-link">
                         <div className="text-truncate">Checklists</div>
                     </a>
                 </li>
             </ul>
-        </li>
-
-        <!-- Todolist -->
-        <li :class="{ 'menu-item': true, 'active': isActive('todolist') }">
-            <a href="/todolist" class="menu-link">
-                <i class="menu-icon tf-icons bx bx-list-check"></i>
-                <div class="text-truncate" data-i18n="Form Validation">Todo List</div>
-            </a>
         </li>
     </ul>
 </aside>
@@ -115,10 +107,8 @@ export default {
                     return route.path == '/';
                 case 'create-checklist':
                     return route.path == '/create-checklist';
-                case 'checklist':
-                    return route.path == '/checklist';
-                case 'todolist':
-                    return route.path == '/todolist';
+                case 'check-list':
+                    return route.path == '/check-list' || route.path == '/todolist'
                 default:
                     return false;
             }
@@ -126,8 +116,8 @@ export default {
 
         const isOpen = (menu) => {
             switch(menu) {
-                case 'checklist':
-                    return route.path == '/checklist' || route.path == '/create-checklist' 
+                case 'check-list':
+                    return route.path == '/check-list' || route.path == '/create-checklist' || route.path == '/todolist' 
                 default: 
                     return false;
             }

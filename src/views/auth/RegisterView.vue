@@ -12,7 +12,7 @@
                                     </div>
                                     <form @submit.prevent="handleSubmit">
                                         <div className="mb-3">
-                                            <label for="name" className="form-label">Full Name</label>
+                                            <label for="name" className="form-label">Username</label>
                                             <input
                                                 type="text"
                                                 className="form-control"
@@ -72,25 +72,38 @@
 </template>
 
 <script>
-    export default {
-        data() {
-            return {
-                name: '',
-                email: '',
-                password: '',
-                confirmPassword: ''
+import axios from 'axios';
+
+export default {
+    data() {
+        return {
+            name: '',
+            email: '',
+            password: '',
+            confirmPassword: ''
+        }
+    },
+    methods: {
+        async handleSubmit() {
+            if (this.password !== this.confirmPassword) {
+                alert("Passwords do not match!");
+                return;
             }
-        },
-        methods: {
-            handleSubmit() {
-                if (this.password !== this.confirmPassword) {
-                    alert("Passwords do not match!");
-                    return;
-                }
-                console.log('Name:', this.name);
-                console.log('Email:', this.email);
-                console.log('Password:', this.password)
-            }
+
+            await axios.post(import.meta.env.VITE_BACKEND_URL + '/register', {
+                name: this.name,
+                email: this.email,
+                password: this.password,
+                password_confirmation: this.confirmPassword
+            })
+            .then((response) => {
+                localStorage.setItem('token', response.data.access_token)
+                this.$router.push('/')
+            })
+            .catch((error) => {
+                console.error(error)
+            });                
         }
     }
+}
 </script>
